@@ -40,7 +40,7 @@ public class OrgChartTest {
 
 	// test if person and his team can be found or not
 	@Test
-	public void orgChartTest() {
+	public void findPersonTest() {
 		HashMap<Integer, Person> personMap = new HashMap<>();
 
 		OrgChart orgChart = new OrgChart();
@@ -50,41 +50,10 @@ public class OrgChartTest {
 		manager.setOrganization("Product Engineering");
 		manager.setLevel(1);
 
-		Person team = new Person("John", "Doe", "444-444-4444", "545 Columbus, Syracuse, NY", "2");
-		team.setTitle("Team Lead");
-		team.setOrganization("Product Engineering");
-		team.setLevel(2);
-
-		manager.addTeamMember(team);
-
 		personMap.put(manager.getID(), manager);
-		personMap.put(team.getID(), team);
 
 		assertTrue(!orgChart.findPerson(personMap, "Raj").isEmpty());
-	}
+		assertTrue(orgChart.findPerson(personMap, "Joe").isEmpty());
 
-	// test if person and his team can be found or not
-	@Test
-	public void orgChartTest1() {
-		HashMap<Integer, Person> personMap = new HashMap<>();
-
-		OrgChart orgChart = new OrgChart();
-
-		Person manager = new Person("Raj", "Jumani", "333-333-3333", "445 Columbus, Syracuse, NY", "1");
-		manager.setTitle("Manager");
-		manager.setOrganization("Product Engineering");
-		manager.setLevel(1);
-
-		Person team = new Person("John", "Doe", "444-444-4444", "545 Columbus, Syracuse, NY", "2");
-		team.setTitle("Team Lead");
-		team.setOrganization("Product Engineering");
-		team.setLevel(2);
-
-		manager.addTeamMember(team);
-
-		personMap.put(manager.getID(), manager);
-		personMap.put(team.getID(), team);
-
-		assertTrue(orgChart.findPerson(personMap, "harry").isEmpty());
 	}
 }

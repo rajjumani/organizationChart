@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.*;
 
 public class OrgChart {
+
+	static final int maxLevel = 3;
+
 	public static void main(String[] args) {
 
 		HashMap<Integer, Person> personMap = new HashMap<>();
@@ -41,7 +44,9 @@ public class OrgChart {
 					for (Person person : personList) {
 						System.out.println(personCount++ + ") ");
 						orgChart.display(person);
-						orgChart.findTeam(person, levelInput);
+						List<Person> teamList = orgChart.findTeam(person, levelInput);
+						for (Person member : person.getTeamMember())
+							orgChart.display(member);
 						System.out.println();
 					}
 				}
@@ -67,7 +72,7 @@ public class OrgChart {
 	}
 
 	// finds the team of person
-	public void findTeam(Person person, String levelInput) {
+	public List<Person> findTeam(Person person, String levelInput) {
 
 		int level = 1;
 		if (!levelInput.isEmpty()) {
@@ -76,7 +81,7 @@ public class OrgChart {
 			level = Integer.parseInt(levelInput);
 		}
 
-		if (level < 1 || level > 3)
+		if (level < 1 || level > maxLevel)
 			throw new IllegalArgumentException("Error: Level Input is OutOfBound");
 
 		int personLevel = person.getLevel() + 1;
@@ -85,11 +90,10 @@ public class OrgChart {
 		Collections.sort(teamList, Person.levelComparator);
 
 		for (Person teamMember : teamList) {
-			if (personLevel <= levelLimit) {
-				display(teamMember);
-				personLevel++;
-			}
+			if (teamMember.getLevel() > personLevel && teamMember.getLevel() <= levelLimit)
+				teamMemberList.add(teamMember);
 		}
+		return teamMemberList;
 	}
 
 	// prints the person details
