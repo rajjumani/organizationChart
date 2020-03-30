@@ -24,6 +24,7 @@ Organization Chart
     7. Input name member is considered to be at level 1 and all the members having level upto the given level in input after level 1 member are printed.
 
 -> Methods and their functionalities:
+
     1. readPersonFile: It will read the contents of personal data from personal.txt file and stores it in the HashMap data structure to maintain the list of all the Person entity.
 
     2. readOrgFile: It will read title and organization of each employee from organization.txt file and associate it with each person.
